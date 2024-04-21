@@ -6,7 +6,9 @@
     <title>Comment</title>
   </head>
   <body>
+    <% if (locals.username) { %>
     <h1>Hello <%= username %></h1>
+    <% } %>
     <form action="/comment" method="POST">
       <input
         type="text"

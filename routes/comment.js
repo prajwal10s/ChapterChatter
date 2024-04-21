@@ -6,8 +6,8 @@ const bookModel = require("../models/book");
 
 //controllers
 const handleCreateComment = async (req, res) => {
-  const { bookName, authorName, chapterNumber } = req.body;
-  console.log(bookName, authorName, chapterNumber);
+  const { bookName, authorName, chapterNumber, Comment } = req.body;
+  console.log(bookName, authorName, chapterNumber, Comment);
   const selectedOption = req.body.Prompt;
   try {
     const book = await bookModel.findOne({
@@ -35,6 +35,7 @@ const handleCreateComment = async (req, res) => {
       book: bookRecord,
       chapterNumber,
       prompt: selectedOption,
+      comment: Comment,
     });
   } catch (error) {
     console.error("Error creating new comment:", error.message);

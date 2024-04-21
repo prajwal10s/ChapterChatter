@@ -4,7 +4,6 @@ const express = require("express");
 const PORT = process.env.PORT;
 const path = require("path");
 const app = express();
-const session = require("express-session");
 const commentRoute = require("./routes/comment.js");
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
