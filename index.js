@@ -6,9 +6,12 @@ const path = require("path");
 const app = express();
 const session = require("express-session");
 const commentRoute = require("./routes/comment.js");
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 const connectToMongoDB = require("./connection");
 const userModel = require("./models/user");
 const bookModel = require("./models/book");
+const commentModel = require("./models/comment");
 const userRoute = require("./routes/user");
 const { execArgv } = require("process");
 
