@@ -30,6 +30,6 @@ const bookSchema = new mongoose.Schema(
 );
 
 // Create a model from the schema
-const Book = mongoose.model("Book", bookSchema);
+const books = mongoose.model("books", bookSchema);
 
-module.exports = Book;
+module.exports = books;
