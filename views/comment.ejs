@@ -6,29 +6,47 @@
     <title>Comment</title>
   </head>
   <body>
-    <input type="text" name="bookname" id="bookname" placeholder="Book Title" />
-    <input
-      type="text"
-      name="authorname"
-      id="authorname"
-      placeholder="Author Name"
-    />
-    <input
-      type="number"
-      name="chapternumber"
-      id="chapternumber"
-      placeholder="Chapter Number"
-    />
-    <br />
-    <select id="Prompt">
-      <option value="Prompt1">Your overall review</option>
-      <option value="Prompt2">What did you find most interesting?</option>
-      <option value="Prompt3">The character you liked the most?</option>
-    </select>
-    <br />
-    <textarea name="Comment" id="commentText" cols="30" rows="5 r">
-Comment</textarea
-    >
-    <button id="addCommentBtn">Add Comment</button>
+    <form action="/comment" method="POST">
+      <input
+        type="text"
+        name="bookName"
+        id="bookName"
+        placeholder="Book Title"
+      />
+      <input
+        type="text"
+        name="authorName"
+        id="authorName"
+        placeholder="Author Name"
+      />
+      <input
+        type="number"
+        name="chapterNumber"
+        id="chapterNumber"
+        placeholder="Chapter Number"
+      />
+      <br />
+      <select id="Prompt" name="Prompt">
+        <option value="Your overall review">Your overall review</option>
+        <option value="What did you find most interesting?">
+          What did you find most interesting?
+        </option>
+        <option value="The character you liked the most">
+          The character you liked the most
+        </option>
+        <option value="The small detail you found most interesting">
+          The small detail you found most interesting
+        </option>
+      </select>
+      <br />
+      <textarea
+        name="Comment"
+        id="commentText"
+        cols="30"
+        rows="5"
+        placeholder="Add your comments here"
+      ></textarea>
+      <button id="addCommentBtn" type="submit">Add Comment</button>
+    </form>
   </body>
 </html>
