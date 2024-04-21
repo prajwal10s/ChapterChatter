@@ -1,14 +1,24 @@
-const express = require("express");
-const mongoose = require("mongoose");
-const Book = require("./models/book");
-const app = express();
-const path = require("path");
 require("dotenv").config();
+
+const express = require("express");
+const PORT = process.env.PORT;
+const path = require("path");
+const app = express();
+const bookRoute = require("./routes/comment.js");
+const connectToMongoDB = require("./connection");
+const userModel = require("./models/user");
+const userRoute = require("./routes/user");
+
 app.set("views", path.join(__dirname + "/views"));
 app.set("view engine", "ejs");
-mongoose.connect(process.env.MONGODB_URL);
-const bookRoute = require("./routes/comment.js");
+
+connectToMongoDB(process.env.MONGODB_URL).then(() => {
+  console.log("Mongo DB connected");
+});
+
 app.use("", bookRoute);
-app.listen(process.env.PORT, () => {
-  console.log(`Server listening on port : ${process.env.PORT}`);
+app.use("/user", userRoute);
+
+app.listen(PORT, () => {
+  console.log(`Server listening on port : ${PORT}`);
 });
