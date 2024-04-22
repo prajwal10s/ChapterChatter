@@ -32,9 +32,8 @@ const handleLoginUser = async (req, res) => {
       .status(400)
       .json({ status: "error", msg: "Either username or pwd is incorrect!" });
   }
-  return res.render("comment", { username: findUser.username });
+  return res.redirect("/showComments/" + findUser._id);
 };
-
 //routes..........
 
 //render signup page

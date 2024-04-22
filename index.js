@@ -40,7 +40,7 @@ connectToMongoDB(process.env.MONGODB_URL).then(() => {
   console.log("Mongo DB connected");
 });
 
-app.use("/comment", commentRoute);
+app.use("/", commentRoute);
 app.use("/user", userRoute);
 
 app.listen(PORT, () => {
