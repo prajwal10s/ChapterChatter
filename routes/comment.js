@@ -3,11 +3,12 @@ const router = express.Router();
 const { v4: uuid } = require("uuid");
 const commentModel = require("../models/comment");
 const bookModel = require("../models/book");
+const userModel = require("../models/user");
 
 //controllers
 const handleCreateComment = async (req, res) => {
-  const { bookName, authorName, chapterNumber, Comment } = req.body;
-  console.log(bookName, authorName, chapterNumber, Comment);
+  const { bookName, authorName, chapterNumber, Comment, username } = req.body;
+  console.log(bookName, authorName, chapterNumber, Comment, username);
   const selectedOption = req.body.Prompt;
   try {
     const book = await bookModel.findOne({
@@ -31,7 +32,12 @@ const handleCreateComment = async (req, res) => {
       bookName,
       authorName,
     });
+    const userRecord = await userModel.findOne({
+      username,
+    });
+    console.log(userRecord);
     const newComment = await commentModel.create({
+      createdBy: userRecord,
       book: bookRecord,
       chapterNumber,
       prompt: selectedOption,
@@ -40,11 +46,16 @@ const handleCreateComment = async (req, res) => {
   } catch (error) {
     console.error("Error creating new comment:", error.message);
   }
-  res.redirect("comment");
+  res.redirect(`/comment?username=${username}`);
+  //return res.redirect("comment");
 };
 
 router.get("/", (req, res) => {
-  res.render("comment.ejs");
+  const username = req.query.username;
+  res.locals.username = username;
+
+  res.render("comment");
 });
+
 router.post("/", handleCreateComment);
 module.exports = router;

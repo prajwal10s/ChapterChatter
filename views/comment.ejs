@@ -6,10 +6,12 @@
     <title>Comment</title>
   </head>
   <body>
-    <% if (locals.user) { %>
-    <h1>Hello <%= locals.user.username %></h1>
+    <% if (locals.username) { %>
+    <h1>Hello <%= locals.username %></h1>
     <% } %>
     <form action="/comment" method="POST">
+      <input type="hidden" name="username" value="<%= locals.username %>" />
+
       <input
         type="text"
         name="bookName"
