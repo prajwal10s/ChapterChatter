@@ -9,7 +9,7 @@ const mongoose = require("mongoose");
 //controllers
 const handleCreateComment = async (req, res) => {
   const { bookName, authorName, chapterNumber, Comment, username } = req.body;
-  console.log(bookName, authorName, chapterNumber, Comment, username);
+  //console.log(bookName, authorName, chapterNumber, Comment, username);
   const selectedOption = req.body.Prompt;
   try {
     const book = await bookModel.findOne({
@@ -36,7 +36,6 @@ const handleCreateComment = async (req, res) => {
     const userRecord = await userModel.findOne({
       username,
     });
-    console.log(userRecord);
     const newComment = await commentModel.create({
       createdBy: userRecord,
       book: bookRecord,
@@ -44,7 +43,7 @@ const handleCreateComment = async (req, res) => {
       prompt: selectedOption,
       comment: Comment,
     });
-    res.redirect(`/${userRecord._id}`);
+    res.redirect(`/showComments/${username}`);
   } catch (error) {
     console.error("Error creating new comment:", error.message);
   }
@@ -54,14 +53,13 @@ const handleCreateComment = async (req, res) => {
 
 const showAllComments = async (req, res) => {
   try {
-    const userId = req.params;
-    const user = userModel.findOne({ _id: userId });
+    const userNameObj = req.params.username;
+    const username = userNameObj.toString();
+    const user = await userModel.findOne({ username });
     if (!user) {
       return res.status(404).json("User not found");
     }
     const comments = await commentModel.find({ createdBy: user._id });
-    console.log("Comments start here");
-    console.log(comments);
     res.render("showComments", { comments, userName: user.username });
   } catch (error) {
     console.error("Error fetching comments", error.message);
@@ -80,6 +78,6 @@ router.get("/comment", (req, res) => {
 
 router.post("/comment", handleCreateComment);
 
-router.get("/showComments/:userId", showAllComments);
+router.get("/showComments/:username", showAllComments);
 
 module.exports = router;

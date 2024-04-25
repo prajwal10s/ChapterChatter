@@ -6,11 +6,12 @@
     <title>Show All comments</title>
   </head>
   <body>
-    <h1>Comments for user <% userName %></h1>
+    <h1>Comments for user <%= userName %></h1>
     <ol>
       <% comments.forEach(comment => { %>
       <li><%= comment.comment %> - <%= userName%></li>
       <% }); %>
     </ol>
+    <a href="/comment?username=<%=userName%>">Add new comment</a>
   </body>
 </html>
