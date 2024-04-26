@@ -3,13 +3,17 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Show All comments</title>
+    <title>My Feed</title>
   </head>
   <body>
-    <h1>Comments for user <%= userName %></h1>
+    <h1><%= userName %>'s Feed</h1>
     <ol>
-      <% comments.forEach(comment => { %>
-      <li><%= comment.comment %> - <%= userName%></li>
+      <% feedComments.forEach(comment => { %>
+      <li>
+        <%= comment.comment %> -
+        <strong><%= comment.createdBy.username%></strong> <br />created on - <%=
+        comment.dateOnly%>
+      </li>
       <% }); %>
     </ol>
     <a href="/comment?username=<%=userName%>">Add new comment</a>
